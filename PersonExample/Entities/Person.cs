@@ -5,7 +5,6 @@ namespace PersonExample.Entities;
 
 public class Person
 {
-
     public int Id { get; set; }
 
     [Required]
@@ -18,5 +17,4 @@ public class Person
 
     [Range(0, 120)]
     public int Age { get; set; }
-
 }
