@@ -1,22 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PersonExample.Data;
 using PersonExample.Entities;
 
 namespace PersonExample.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class PersonController : ControllerBase
+public class PersonController(PersonDbContext dbContext) : ControllerBase
 {
-
     [HttpGet]
-    public IEnumerable<Person> Get()
+    public async Task<ActionResult<IEnumerable<Person>>> GetAll()
     {
-        return
-        [
-            new() { Id = 1, FirstName = "John", LastName = "Doe", Age = 30 },
-            new() { Id = 2, FirstName = "Jane", LastName = "Smith", Age = 25 },
-            new() { Id = 3, FirstName = "Bob", LastName = "Johnson", Age = 40 }
-        ];
+        var result = await dbContext.Set<Person>().ToListAsync();
+        return Ok(result);
     }
 
 }
