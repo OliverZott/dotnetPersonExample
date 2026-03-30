@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PersonExample.Entities;
 
 
 // Address types are standard, fixed domain concepts
 // They're application logic, not user data
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum AddressType
 {
     Home,
