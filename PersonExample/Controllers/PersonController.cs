@@ -10,10 +10,17 @@ namespace PersonExample.Controllers;
 public class PersonController(PersonDbContext dbContext) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Person>>> GetAll()
+    public async Task<ActionResult<IEnumerable<Person>>> GetAllAsync()
     {
         var result = await dbContext.Set<Person>().ToListAsync();
         return Ok(result);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Person>> GetByIdAsync(int id)
+    {
+        var person = await dbContext.Set<Person>().FindAsync(id);
+        return person == null ? NotFound() : Ok(person);
     }
 
 }

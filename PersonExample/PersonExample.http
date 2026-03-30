@@ -1,6 +1,13 @@
-@PersonExample_HostAddress = http://localhost:5263
+@host = http://localhost:5263
 
-GET {{PersonExample_HostAddress}}/weatherforecast/
+### Get all persons
+GET {{host}}/person
 Accept: application/json
 
-###
+### Get all addresses
+GET {{host}}/addresses
+Accept: application/json
+
+### Get address types
+GET {{host}}/addresstypes
+Accept: application/json

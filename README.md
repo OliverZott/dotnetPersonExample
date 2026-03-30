@@ -32,11 +32,17 @@ VIa PRogram.cs on startup it will automatically:
 
 ## Run/Debug Application
 
-- Use `https` or `Container (Dockerfile)` launch configs
+### Local Development
+
+- Use `https` or `http` launch configs
 - Browser will automatically open to Swagger UI (/swagger)
+- Access: https://localhost:7009/swagger
 
 ## TODO
 
 - DTOs
+- Mapper
 - Validation
 - Auth
+- Global exception handling / correct exceptions in app
+- - seggregation of concerns (services, repositories, controllers,...)

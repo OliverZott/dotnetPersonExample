@@ -9,12 +9,15 @@ public class Person
 
     [Required]
     [MaxLength(50)]
-    public string FirstName { get; set; } = "";
+    public required string FirstName { get; set; }
 
     [Required]
     [MaxLength(50)]
-    public string LastName { get; set; } = "";
+    public required string LastName { get; set; }
 
     [Range(0, 120)]
     public int Age { get; set; }
+
+    // Navigation property - One Person can have many Addresses
+    public ICollection<Address> Addresses { get; set; } = new List<Address>();
 }
