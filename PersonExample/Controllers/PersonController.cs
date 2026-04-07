@@ -11,10 +11,27 @@ namespace PersonExample.Controllers;
 public class PersonController(PersonDbContext dbContext) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Person>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<GetPersonDto>>> GetAllAsync()
     {
+        // TODO - use mapsterto map entitie-dtos
         var result = await dbContext.Person
             .Include(p => p.Addresses)
+            .Select(p => new GetPersonDto
+            {
+                Id = p.Id,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Age = p.Age,
+                Addresses = p.Addresses.Select(a => new GetAddressDto
+                {
+                    Id = a.Id,
+                    Type = a.Type,
+                    Street = a.Street,
+                    City = a.City,
+                    PostalCode = a.PostalCode,
+                    Country = a.Country
+                }).ToList()
+            })
             .ToListAsync();
         return Ok(result);
     }

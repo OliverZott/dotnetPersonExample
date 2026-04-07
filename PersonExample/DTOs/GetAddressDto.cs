@@ -1,10 +1,11 @@
-using PersonExample.Entities;
+﻿using PersonExample.Entities;
 
 namespace PersonExample.DTOs;
 
-public class CreateAddressDto
+public class GetAddressDto
 {
-    public required AddressType Type { get; set; }
+    public int Id { get; set; }
+    public AddressType Type { get; set; }
     public required string Street { get; set; }
     public required string City { get; set; }
     public required string PostalCode { get; set; }
