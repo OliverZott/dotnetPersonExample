@@ -21,7 +21,7 @@ public class AddressesController(PersonDbContext dbContext) : ControllerBase
     public async Task<ActionResult<Address>> Create(CreateAddressDto addressDto)
     {
         // Verify person exists
-        var person = await dbContext.People.FindAsync(addressDto.PersonId);
+        var person = await dbContext.Person.FindAsync(addressDto.PersonId);
         if (person == null)
             return NotFound($"Person with ID {addressDto.PersonId} not found");
 

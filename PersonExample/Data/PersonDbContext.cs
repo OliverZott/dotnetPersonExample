@@ -8,7 +8,7 @@ namespace PersonExample.Data;
 
 public class PersonDbContext(DbContextOptions<PersonDbContext> options) : IdentityDbContext<ApplicationUser>(options)
 {
-    public DbSet<Person> People { get; set; }
+    public DbSet<Person> Person { get; set; }
     public DbSet<Address> Addresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
