@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PersonExample.Entities;
 
 namespace PersonExample.Data;
 
-public class PersonDbContext(DbContextOptions<PersonDbContext> options) : DbContext(options)
+public class PersonDbContext(DbContextOptions<PersonDbContext> options) : IdentityDbContext<ApplicationUser>(options)
 {
     public DbSet<Person> People { get; set; }
     public DbSet<Address> Addresses { get; set; }
