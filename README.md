@@ -44,5 +44,6 @@ VIa PRogram.cs on startup it will automatically:
 - Mapper
 - Validation
 - Auth
+- ´Database versioning (e.g. changed column name, new column,...)´
 - Global exception handling / correct exceptions in app
-- - seggregation of concerns (services, repositories, controllers,...)
+- seggregation of concerns (services, repositories, controllers,...)
