@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonExample.Entities;
 
-
+[Table("People")]
 public class Person
 {
     public int Id { get; set; }

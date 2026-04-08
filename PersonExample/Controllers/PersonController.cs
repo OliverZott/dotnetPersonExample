@@ -11,10 +11,27 @@ namespace PersonExample.Controllers;
 public class PersonController(PersonDbContext dbContext) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Person>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<GetPersonDto>>> GetAllAsync()
     {
-        var result = await dbContext.People
+        // TODO - use mapsterto map entitie-dtos
+        var result = await dbContext.Person
             .Include(p => p.Addresses)
+            .Select(p => new GetPersonDto
+            {
+                Id = p.Id,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Age = p.Age,
+                Addresses = p.Addresses.Select(a => new GetAddressDto
+                {
+                    Id = a.Id,
+                    Type = a.Type,
+                    Street = a.Street,
+                    City = a.City,
+                    PostalCode = a.PostalCode,
+                    Country = a.Country
+                }).ToList()
+            })
             .ToListAsync();
         return Ok(result);
     }
@@ -22,7 +39,7 @@ public class PersonController(PersonDbContext dbContext) : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Person>> GetByIdAsync(int id)
     {
-        var person = await dbContext.People
+        var person = await dbContext.Person
             .Include(p => p.Addresses)
             .FirstOrDefaultAsync(p => p.Id == id);
         return person == null ? NotFound() : Ok(person);
@@ -52,7 +69,7 @@ public class PersonController(PersonDbContext dbContext) : ControllerBase
             });
         }
 
-        dbContext.People.Add(person);
+        dbContext.Person.Add(person);
         await dbContext.SaveChangesAsync();
 
         return CreatedAtAction(nameof(GetByIdAsync), new { id = person.Id }, person);

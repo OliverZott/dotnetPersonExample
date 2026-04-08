@@ -24,7 +24,7 @@ dotnet ef migrations add InitialCreate --project "PersonExample\PersonExample.cs
 dotnet ef database update --project "PersonExample\PersonExample.csproj"
 ```
 
-VIa PRogram.cs on startup it will automatically:
+Via Program.cs on startup it will automatically:
 - Checks for pending migrations
 - Creates the database if it doesn't exist
 - Creates all tables
@@ -46,4 +46,22 @@ VIa PRogram.cs on startup it will automatically:
 - Auth
 - ´Database versioning (e.g. changed column name, new column,...)´
 - Global exception handling / correct exceptions in app
-- seggregation of concerns (services, repositories, controllers,...)
+- - seggregation of concerns (services, repositories, controllers,...)
+	- 
+
+
+# Remarks
+
+## Authentication 
+
+### 1. Service and Database Setup
+- ApplicationUser.cs:
+	- `ApplicationUser` — your user entity (extends IdentityUser which has Id, Email, PasswordHash, UserName, etc.)
+- PersonDbContext.cs:
+	- `PersonDbContext : IdentityDbContext` — tells EF to include Identity tables in migrations
+- Program.cs:
+	- `AddIdentity<ApplicationUser, IdentityRole>()` — registers UserManager and RoleManager as injectable services
+	- `UseAuthentication()` — middleware that reads the incoming token and populates HttpContext.User
+- Update Database 
+	- `dotnet ef migrations add AddIdentity --project "PersonExample\PersonExample.csproj"`
+	- `dotnet ef database update --project "PersonExample\PersonExample.csproj"`
