@@ -1,4 +1,3 @@
-using PersonExample.Data;
 using PersonExample.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +8,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddAuthServices(builder.Configuration);
+builder.Services.AddCorsPolicy(builder.Configuration);
 
 
 var app = builder.Build();
@@ -25,9 +25,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
