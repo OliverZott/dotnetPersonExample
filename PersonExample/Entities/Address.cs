@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace PersonExample.Entities;
@@ -41,7 +40,6 @@ public class Address
     public required string Country { get; set; }
 
     // Foreign Key
-    [ForeignKey("Person")]
     public int PersonId { get; set; }
 
     // Navigation property

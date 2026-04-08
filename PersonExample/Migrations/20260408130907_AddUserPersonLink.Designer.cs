@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonExample.Data;
@@ -11,9 +12,11 @@ using PersonExample.Data;
 namespace PersonExample.Migrations
 {
     [DbContext(typeof(PersonDbContext))]
-    partial class PersonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260408130907_AddUserPersonLink")]
+    partial class AddUserPersonLink
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,8 +278,7 @@ namespace PersonExample.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.HasIndex("PersonId")
-                        .IsUnique();
+                    b.HasIndex("PersonId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -304,7 +306,7 @@ namespace PersonExample.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("People", (string)null);
+                    b.ToTable("People");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -372,9 +374,8 @@ namespace PersonExample.Migrations
             modelBuilder.Entity("PersonExample.Entities.ApplicationUser", b =>
                 {
                     b.HasOne("PersonExample.Entities.Person", "Person")
-                        .WithOne()
-                        .HasForeignKey("PersonExample.Entities.ApplicationUser", "PersonId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .WithMany()
+                        .HasForeignKey("PersonId");
 
                     b.Navigation("Person");
                 });

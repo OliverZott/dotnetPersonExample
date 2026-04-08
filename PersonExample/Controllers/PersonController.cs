@@ -14,7 +14,7 @@ public class PersonController(PersonDbContext dbContext) : ControllerBase
     public async Task<ActionResult<IEnumerable<GetPersonDto>>> GetAllAsync()
     {
         // TODO - use mapsterto map entitie-dtos
-        var result = await dbContext.Person
+        var result = await dbContext.Persons
             .Include(p => p.Addresses)
             .Select(p => new GetPersonDto
             {
@@ -39,7 +39,7 @@ public class PersonController(PersonDbContext dbContext) : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Person>> GetByIdAsync(int id)
     {
-        var person = await dbContext.Person
+        var person = await dbContext.Persons
             .Include(p => p.Addresses)
             .FirstOrDefaultAsync(p => p.Id == id);
         return person == null ? NotFound() : Ok(person);
@@ -69,7 +69,7 @@ public class PersonController(PersonDbContext dbContext) : ControllerBase
             });
         }
 
-        dbContext.Person.Add(person);
+        dbContext.Persons.Add(person);
         await dbContext.SaveChangesAsync();
 
         return CreatedAtAction(nameof(GetByIdAsync), new { id = person.Id }, person);

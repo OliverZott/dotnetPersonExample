@@ -22,7 +22,7 @@ public class AddressesController(PersonDbContext dbContext) : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Address>> Create(int personId, CreateAddressDto addressDto)
     {
-        var person = await dbContext.Person.FindAsync(personId);
+        var person = await dbContext.Persons.FindAsync(personId);
         if (person == null)
             return NotFound($"Person with ID {personId} not found");
 
