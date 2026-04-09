@@ -1,0 +1,102 @@
+{
+  "info": {
+    "_postman_id": "5edc505e-3a87-489c-9fd3-08f1844b76e7",
+    "name": "person",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12222368",
+    "_collection_link": "https://go.postman.co/collection/12222368-5edc505e-3a87-489c-9fd3-08f1844b76e7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Persons",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/person",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "person"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Person by Id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/person/11",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "person",
+            "11"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Person and Address",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"FirstName\": \"Oliver\",\r\n    \"LastName\": \"Zott\",\r\n    \"Age\": 42,\r\n    \"Addresses\": [\r\n        {\r\n            \"Type\": \"Home\",\r\n            \"Street\": \"123 Main Street\",\r\n            \"City\": \"Vienna\",\r\n            \"PostalCode\": \"1010\",\r\n            \"Country\": \"Austria\"\r\n        },\r\n        {\r\n            \"Type\": \"Work\",\r\n            \"Street\": \"456 Business Ave\",\r\n            \"City\": \"Vienna\",\r\n            \"PostalCode\": \"1020\",\r\n            \"Country\": \"Austria\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/person",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "person"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

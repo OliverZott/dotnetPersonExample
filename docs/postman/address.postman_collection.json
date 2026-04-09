@@ -1,0 +1,135 @@
+{
+  "info": {
+    "_postman_id": "a6377b98-433d-4be7-ad74-c575b2e14d64",
+    "name": "address",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12222368",
+    "_collection_link": "https://go.postman.co/collection/12222368-a6377b98-433d-4be7-ad74-c575b2e14d64?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "All Addresses by PersonId",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/persons/1/addresses",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "persons",
+            "1",
+            "addresses"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Address by Id an by PersonId",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/persons/1/addresses/5",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "persons",
+            "1",
+            "addresses",
+            "5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Address by PersonId",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Type\" : \"Home\",\r\n    \"Street\" : \"Burgstall 58\",\r\n    \"City\" : \"Mutters\",\r\n    \"PostalCode\" : \"6162\",\r\n    \"Country\" : \"Österreich\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/persons/1/addresses",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "persons",
+            "1",
+            "addresses"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Address Types",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/addresstypes",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "addresstypes"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
