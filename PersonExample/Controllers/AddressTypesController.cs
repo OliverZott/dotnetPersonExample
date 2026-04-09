@@ -11,7 +11,6 @@ public class AddressTypesController : ControllerBase
     public ActionResult<IEnumerable<object>> GetAddressTypes()
     {
         var addressTypes = Enum.GetValues<AddressType>()
-            .Cast<AddressType>()
             .Select(type => new
             {
                 id = (int)type,
