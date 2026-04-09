@@ -1,6 +1,6 @@
 ﻿namespace PersonExample.DTOs;
 
-public class GetPersonDto
+public class GetPersonDetailDto
 {
     public int Id { get; set; }
     public string? FirstName { get; set; }

@@ -40,14 +40,13 @@ Via Program.cs on startup it will automatically:
 
 ## TODO
 
-- DTOs
-- Mapper
+- DTO Mapping (Mapster)
+- seggregation of concerns (services, repositories, controllers,...)
 - Validation
 - Auth
 - ´Database versioning (e.g. changed column name, new column,...)´
 - Global exception handling / correct exceptions in app
-- - seggregation of concerns (services, repositories, controllers,...)
-	- 
+
 
 
 # Remarks

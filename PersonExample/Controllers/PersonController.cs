@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PersonExample.Data;
 using PersonExample.DTOs;
@@ -8,15 +9,30 @@ namespace PersonExample.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class PersonController(PersonDbContext dbContext) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<GetPersonDto>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<GetPersonListDto>>> GetAllAsync()
     {
-        // TODO - use mapsterto map entitie-dtos
         var result = await dbContext.Persons
-            .Include(p => p.Addresses)
-            .Select(p => new GetPersonDto
+            .Select(p => new GetPersonListDto
+            {
+                Id = p.Id,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Age = p.Age,
+            })
+            .ToListAsync();
+        return Ok(result);
+    }
+
+    [HttpGet("{id}", Name = "GetPersonById")]
+    public async Task<ActionResult<GetPersonDetailDto>> GetByIdAsync(int id)
+    {
+        var person = await dbContext.Persons
+            .Where(p => p.Id == id)
+            .Select(p => new GetPersonDetailDto
             {
                 Id = p.Id,
                 FirstName = p.FirstName,
@@ -32,21 +48,13 @@ public class PersonController(PersonDbContext dbContext) : ControllerBase
                     Country = a.Country
                 }).ToList()
             })
-            .ToListAsync();
-        return Ok(result);
-    }
+            .FirstOrDefaultAsync();
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Person>> GetByIdAsync(int id)
-    {
-        var person = await dbContext.Persons
-            .Include(p => p.Addresses)
-            .FirstOrDefaultAsync(p => p.Id == id);
         return person == null ? NotFound() : Ok(person);
     }
 
     [HttpPost]
-    public async Task<ActionResult<Person>> Create(CreatePersonDto request)
+    public async Task<ActionResult<GetPersonDetailDto>> Create(CreatePersonDto request)
     {
         // Create person
         var person = new Person
@@ -72,6 +80,24 @@ public class PersonController(PersonDbContext dbContext) : ControllerBase
         dbContext.Persons.Add(person);
         await dbContext.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetByIdAsync), new { id = person.Id }, person);
+        var result = new GetPersonDetailDto
+        {
+            Id = person.Id,
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            Age = person.Age,
+            Addresses = person.Addresses.Select(a => new GetAddressDto
+            {
+                Id = a.Id,
+                Type = a.Type,
+                Street = a.Street,
+                City = a.City,
+                PostalCode = a.PostalCode,
+                Country = a.Country
+            }).ToList()
+        };
+
+        return CreatedAtRoute("GetPersonById", new { id = result.Id }, result);
+
     }
 }
